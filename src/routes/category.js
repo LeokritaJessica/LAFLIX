@@ -10,24 +10,24 @@ const categoryMiddleware = require("../middlewares/category");
 
 //Routes
 router.get(
-  "/movie",
+  "/category",
   authMiddleware.validateToken,
   categoryController.browse
 );
 router.post(
-  "/movie",
+  "/category",
   authMiddleware.validateToken,
   categoryMiddleware.add,
   categoryController.add
 );
 router.put(
-  "/movie/:id",
+  "/category/:id",
   authMiddleware.validateToken,
   categoryMiddleware.edit,
   categoryController.edit
 );
 router.delete(
-  "/movie/:id",
+  "/category/:id",
   authMiddleware.validateToken,
   categoryController.delete
 );

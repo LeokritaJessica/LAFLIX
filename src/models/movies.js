@@ -41,7 +41,7 @@ const movieSchema = new Schema(
       required: true,
     },
     releaseDate: {
-      type: Date,
+      type: Number,
       required: true,
     },
     reviews: [

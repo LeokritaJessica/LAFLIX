@@ -9,11 +9,7 @@ const authMiddleware = require("../middlewares/auth");
 const movieMiddleware = require("../middlewares/movie");
 
 //Routes
-router.get(
-  "/movie",
-  authMiddleware.validateToken,
-  movieController.browse
-);
+router.get("/movie", movieController.browse);
 router.post(
   "/movie",
   authMiddleware.validateToken,

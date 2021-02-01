@@ -36,18 +36,20 @@ module.exports = {
       const updateCategory = await categoryService.edit(id, categoryData);
       res.send(updateCategory);
     } catch (err) {
-      res.status(400).json({ error: err });
+      res
+        .status(400)
+        .send({ message: "Update category Success", data: updateCategory });;
     }
   },
   delete: async (req, res) => {
     try {
       const { id } = req.params;
 
-      const deleteCategory = await movieService.delete(id);
+      const deleteCategory = await categoryService.delete(id);
 
       res
         .status(200)
-        .send({ message: "Delete movie Success", data: deleteCategory });
+        .send({ message: "Delete category Success", data: deleteCategory });
     } catch (err) {
       res.status(400).json({ error: err });
     }

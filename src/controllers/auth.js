@@ -14,7 +14,7 @@ module.exports = {
       const { email, password } = req.body;
 
       //Checking if the user already in database
-      const isEmailValid = await loginService.findEmail({ email: email });
+      const isEmailValid = await loginService.findEmail(email);
       if (!isEmailValid) return res.status(400).send("Invalid email");
 
       //Checking if password is correct

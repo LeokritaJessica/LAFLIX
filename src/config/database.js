@@ -11,6 +11,7 @@ try {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
+    useFindAndModify: false
   });
 
   //Testing connection

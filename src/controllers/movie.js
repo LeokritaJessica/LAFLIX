@@ -1,5 +1,5 @@
 //Import data
-const movieService = require("../services/review");
+const movieService = require("../services/movie");
 
 //Modules exports
 module.exports = {
@@ -34,7 +34,7 @@ module.exports = {
 
     try {
       const updateMovie = await movieService.edit(id, movieData);
-      res.send(updateMovie);
+      res.send({ message: "Update movie Success", data: updateMovie});
     } catch (err) {
       res.status(400).json({ error: err });
     }

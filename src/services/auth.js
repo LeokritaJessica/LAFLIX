@@ -5,7 +5,7 @@ const userModel = require("../models/users");
 //Module exports
 module.exports = {
   findEmail: async (email) => {
-    return await userModel.findOne(email)
+    return await userModel.findOne({email})
   },
   register: async (userData) => {
     //Create new user
