@@ -30,6 +30,14 @@ const movieSchema = new Schema(
       type: String,
       required: true,
     },
+    duration: {
+      type: String,
+      required: true,
+    },
+    budget: {
+      type: String,
+      required: true,
+    },
     categories: [
       {
         type: mongoose.Schema.Types.ObjectId,
@@ -41,7 +49,7 @@ const movieSchema = new Schema(
       required: true,
     },
     releaseDate: {
-      type: Number,
+      type: String,
       required: true,
     },
     reviews: [

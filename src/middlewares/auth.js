@@ -12,24 +12,22 @@ module.exports = {
   validateRegister: (req, res, next) => {
     const { body } = req;
     const schema = joi.object({
-      photo: joi.string().required(),
+      //photo: joi.string().required(),
       email: joi.string().required(),
       password: joi.string().required(),
       username: joi.string().required().min(3),
       fullname: joi.string().required().min(3),
-      roles: joi.string().required()
+      //roles: joi.string().required()
     });
 
     const validation = schema.validate(body);
 
     if (!validation.error) next();
     else
-      res
-        .status(500)
-        .send({
-          error: validation.error.details[0].message,
-          message: "Failed validation",
-        });
+      res.status(500).send({
+        error: validation.error.details[0].message,
+        message: "Failed validation",
+      });
   },
   validateLogin: (req, res, next) => {
     const { body } = req;
