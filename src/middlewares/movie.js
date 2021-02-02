@@ -12,8 +12,10 @@ module.exports = {
       starring: joi.string().required(),
       synopsis: joi.string().required(),
       director: joi.string().required(),
+      duration: joi.string().required(),
+      budget: joi.string().required(),
       tag: joi.string().required(),
-      releaseDate: joi.number().integer().required(),
+      releaseDate: joi.string().required(),
     });
 
     const validation = schema.validate(body);
