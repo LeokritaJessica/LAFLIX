@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 require("dotenv").config();
 
 //Import routes
-const router = require('./src/routes')
+const router = require("./src/routes");
 
 //Import data
 const { PORT } = process.env;
@@ -23,6 +23,7 @@ app.use(router.authRoutes);
 app.use(router.reviewRoutes);
 app.use(router.moviesRoutes);
 app.use(router.categoriesRoutes);
+app.use(router.adminRoutes);
 
 //Start server
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));

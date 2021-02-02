@@ -17,4 +17,7 @@ module.exports = {
   delete: async (id) => {
     return await movieModel.findByIdAndDelete(id);
   },
+  search: async (title) => {
+    return await movieModel.find({ title: { $regex: title, $options: "$i" } });
+  },
 };

@@ -34,7 +34,7 @@ module.exports = {
 
     try {
       const updateMovie = await movieService.edit(id, movieData);
-      res.send({ message: "Update movie Success", data: updateMovie});
+      res.send({ message: "Update movie Success", data: updateMovie });
     } catch (err) {
       res.status(400).json({ error: err });
     }
@@ -48,6 +48,17 @@ module.exports = {
       res
         .status(200)
         .send({ message: "Delete movie Success", data: deleteMovie });
+    } catch (err) {
+      res.status(400).json({ error: err });
+    }
+  },
+  /**Menambahkan Controller Search Bar */
+  search: async (req, res) => {
+    const { title } = req.params;
+
+    try {
+      const test = await movieService.search(title);
+      res.send({ message: "Search movie Success", data: test });
     } catch (err) {
       res.status(400).json({ error: err });
     }

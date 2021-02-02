@@ -4,29 +4,11 @@ const router = require("express").Router();
 //Controller
 const movieController = require("../controllers/movie");
 
-//Middleware
-const authMiddleware = require("../middlewares/auth");
-const movieMiddleware = require("../middlewares/movie");
+/**Router Saat munuju halaman website lansung menampilkan seluruh film */
+router.get("/", movieController.browse);
 
-//Routes
-router.get("/movie", movieController.browse);
-router.post(
-  "/movie",
-  authMiddleware.validateToken,
-  movieMiddleware.add,
-  movieController.add
-);
-router.put(
-  "/movie/:id",
-  authMiddleware.validateToken,
-  movieMiddleware.edit,
-  movieController.edit
-);
-router.delete(
-  "/movie/:id",
-  authMiddleware.validateToken,
-  movieController.delete
-);
+/**Router untuk serach bar pada website */
+router.get("/search/:title", movieController.search);
 
 //Module exports
 module.exports = router;
