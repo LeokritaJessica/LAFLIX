@@ -31,7 +31,7 @@ module.exports = {
     }
   },
   register: async (req, res) => {
-    const { body } = req;
+    const { body, file } = req;
 
     //hash password
     const salt = await bcrypt.genSalt(10);
@@ -40,11 +40,14 @@ module.exports = {
     //Find exist email in database
     const isEmailValid = await loginService.findEmail(body.email);
     if (isEmailValid) return res.status(400).send("This Email already used");
-
+    console.log(file)
+    
     //Create new user
     const userData = {
       ...body,
+      photo: file.location,
       password: hashedPass,
+
     };
     try {
       const savedUser = await loginService.register(userData);
