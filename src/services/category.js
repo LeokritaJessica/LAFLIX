@@ -12,7 +12,9 @@ module.exports = {
     return await category.save();
   },
   edit: async (id, categoryData) => {
-    return await categoryModel.findByIdAndUpdate(id, categoryData);
+    return await categoryModel.findByIdAndUpdate(id, categoryData, {
+      new: true,
+    });
   },
   delete: async (id) => {
     return await categoryModel.findByIdAndDelete(id);

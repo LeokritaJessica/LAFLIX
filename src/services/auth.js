@@ -1,5 +1,4 @@
 //Import data
-const { where } = require("../models/users");
 const userModel = require("../models/users");
 
 //Module exports

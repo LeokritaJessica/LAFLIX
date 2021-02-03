@@ -1,4 +1,5 @@
 //Import data
+const reviews = require("../models/reviews");
 const userModel = require("../models/users");
 
 //Module exports
@@ -10,7 +11,7 @@ module.exports = {
     return await userModel.findById(id);
   },
   edit: async (id, userData) => {
-    return await userModel.findByIdAndUpdate(id, userData);
+    return await userModel.findByIdAndUpdate(id, userData, { new: true });
   },
   delete: async (id) => {
     return await userModel.findByIdAndDelete(id);

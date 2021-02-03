@@ -4,8 +4,22 @@ const movieService = require("../services/movie");
 //Modules exports
 module.exports = {
   browse: async (req, res) => {
+    // destructure page and limit and set default values
+    const { page = 1 } = req.query;
     try {
-      const movie = await movieService.find();
+      const movie = await movieService.find(page);
+
+      res.status(200).send({ data: movie });
+    } catch (err) {
+      res.status(400).json({ error: err });
+    }
+  },
+  browseByCat: async (req, res) => {
+    const { categoryId } = req.params;
+    // destructure page and limit and set default values
+    const { page = 1 } = req.query;
+    try {
+      const movie = await movieService.findByCat(categoryId, page);
 
       res.status(200).send({ data: movie });
     } catch (err) {
@@ -14,13 +28,12 @@ module.exports = {
   },
   add: async (req, res) => {
     const { body } = req;
-
     //Create new movie
-    const movieData = { ...body };
+    const movieData = { ...body, category: body.categoryId };
 
     try {
-      const savedMovie = await movieService.add(movieData);
-      res.send(savedMovie);
+      const savedMovie = await movieService.add(movieData, body.categoryId);
+      res.send({ message: "Saved movie Success", data: savedMovie });
     } catch (err) {
       res.status(400).json({ error: err });
     }
@@ -52,13 +65,26 @@ module.exports = {
       res.status(400).json({ error: err });
     }
   },
-  /**Menambahkan Controller Search Bar */
   search: async (req, res) => {
     const { title } = req.params;
 
     try {
       const test = await movieService.search(title);
       res.send({ message: "Search movie Success", data: test });
+    } catch (err) {
+      res.status(400).json({ error: err });
+    }
+  },
+  upload: async (req, res) => {
+    const { file } = req;
+    const { movieId } = req.params;
+
+    //Update movie
+    const uploadFile = file.location;
+
+    try {
+      const upload = await movieService.edit(movieId, uploadFile);
+      res.send({ message: "Upload photo Success", data: upload });
     } catch (err) {
       res.status(400).json({ error: err });
     }

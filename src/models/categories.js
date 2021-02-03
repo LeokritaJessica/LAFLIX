@@ -4,6 +4,12 @@ const Schema = mongoose.Schema;
 
 const categorySchema = new Schema(
   {
+    movies: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "movies",
+      },
+    ],
     category: {
       type: String,
       required: true,

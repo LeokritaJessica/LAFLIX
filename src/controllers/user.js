@@ -7,7 +7,6 @@ module.exports = {
   browse: async (req, res) => {
     try {
       const user = await userService.find();
-
       res.status(200).send({ data: user });
     } catch (err) {
       res.status(400).json({ error: err });
@@ -17,7 +16,7 @@ module.exports = {
     try {
       const { id } = req.params;
       const user = await userService.findId(id);
-
+      
       res.status(200).send({ data: user });
     } catch (err) {
       res.status(400).json({ error: err });
@@ -29,14 +28,12 @@ module.exports = {
       const { id } = req.params;
       //hash password
       const salt = await bcrypt.genSalt(10);
-      console.log(salt);
       const hashedPass = await bcrypt.hash(body.password, salt);
 
       const userData = {
         ...body,
         password: hashedPass,
       };
-      console.log(userData);
       
       const editUser = await userService.edit(id, userData);
       res.status(200).send({ message: "Update user Success", data: editUser });
