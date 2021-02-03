@@ -1,5 +1,6 @@
 //Import dependencies
 const mongoose = require("mongoose");
+const reviews = require("./reviews");
 
 //Import data
 const Schema = mongoose.Schema;
@@ -13,6 +14,13 @@ const movieSchema = new Schema(
     poster: {
       type: String,
       default: 'poster',
+    },
+    ratingAverage: {
+      type: Number,
+      default: 1,
+      min: [1, 'Rating must be above 1.0'],
+      max: [10, 'Rating must be below 10.0'],
+      set: val => Math.round(val * 10)/10
     },
     trailer: {
       type: String,
@@ -53,7 +61,7 @@ const movieSchema = new Schema(
     reviews: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "reviews",
+        ref: reviews,
       },
     ],
     createdAt: {
@@ -73,11 +81,9 @@ const movieSchema = new Schema(
   }
 );
 
-// movieSchema.virtual('rating').get( function() {
-//   const sum = this.reviews.reduce((a, b)=> a+b, 0)
-//   return (sum/this.reviews.length)|| 0
-  
-// })
+movieSchema.post("delete", (movie) => {
+  reviews.deleteMany({ _id: { $in: movie.reviews } });
+});
 
 //Module export
 module.exports = mongoose.model("Movie", movieSchema);

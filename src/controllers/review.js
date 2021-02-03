@@ -7,11 +7,13 @@ module.exports = {
     const { movieId } = req.params;
     // destructure page and limit and set default values
     const { page = 1 } = req.query;
+    //get total documents
+    const pageInfo = await reviewService.getPagination(page);
 
     try {
       const review = await reviewService.findByMovieId(movieId, page);
 
-      res.status(200).send({ data: review });
+      res.status(200).send({ data: review, ...pageInfo });
     } catch (err) {
       res.status(400).json({ error: err });
     }
@@ -57,13 +59,17 @@ module.exports = {
     }
   },
   edit: async (req, res) => {
-    const { reviewId } = req.params;
+    const { movieId, reviewId } = req.params;
     const { body } = req;
     //Create new comment
     const reviewData = { ...body };
 
     try {
-      const updateReview = await reviewService.edit(reviewId, reviewData);
+      const updateReview = await reviewService.edit(
+        movieId,
+        reviewId,
+        reviewData
+      );
       res
         .status(200)
         .send({ message: "Update review Success", data: updateReview });

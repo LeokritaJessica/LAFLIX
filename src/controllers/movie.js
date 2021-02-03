@@ -9,7 +9,10 @@ module.exports = {
     try {
       const movie = await movieService.find(page);
 
-      res.status(200).send({ data: movie });
+      //get total documents
+      const pageInfo = await movieService.getPagination(page);
+
+      res.status(200).send({ data: movie, ...pageInfo });
     } catch (err) {
       res.status(400).json({ error: err });
     }
@@ -21,7 +24,20 @@ module.exports = {
     try {
       const movie = await movieService.findByCat(categoryId, page);
 
-      res.status(200).send({ data: movie });
+      //get total documents in the category
+      const pageInfo = await movieService.getPageInfo(page);
+
+      res.status(200).send({ data: movie, ...pageInfo });
+    } catch (err) {
+      res.status(400).json({ error: err });
+    }
+  },
+  read: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const user = await movieService.findId(id);
+
+      res.status(200).send({ data: user });
     } catch (err) {
       res.status(400).json({ error: err });
     }

@@ -13,9 +13,12 @@ const roleMiddleware = require("../middlewares/role")
 //Routes
 router.get("/movies", movieController.browse);
 
+router.get("/movies/:id", movieController.read);
+
 router.post(
   "/movies",
   authMiddleware.validateToken,
+  roleMiddleware.admin,
   movieMiddleware.add,
   movieController.add
   );
@@ -24,6 +27,7 @@ router.post(
 router.post(
   "/movies/:movieId/upload",
   authMiddleware.validateToken,
+  roleMiddleware.admin,
   uploadMovieMiddleware.single("poster"),
   movieController.upload
 );
