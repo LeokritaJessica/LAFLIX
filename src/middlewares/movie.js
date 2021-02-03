@@ -35,7 +35,7 @@ module.exports = {
       synopsis: joi.string().required(),
       director: joi.string().required(),
       tag: joi.string().required(),
-      releaseDate: joi.number().integer().required(),
+      releaseDate: joi.string().integer().required(),
     });
 
     const validation = schema.validate(body);

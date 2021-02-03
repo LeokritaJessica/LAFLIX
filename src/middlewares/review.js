@@ -8,7 +8,7 @@ module.exports = {
     const schema = joi.object({
       headline: joi.string().required(),
       comment: joi.string().required(),
-      rating: joi.number().required().min(1).max(10),
+      rating: joi.integer().required().min(1).max(10),
     });
 
     const validation = schema.validate(body);

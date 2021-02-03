@@ -11,6 +11,9 @@ module.exports = {
       .skip((page - 1) * 10)
       .exec();
   },
+  findId: async (id) => {
+    return await movieModel.findById(id);
+  },
   findByCat: async (categoryId, page) => {
     return await movieModel
       .find({ category: categoryId })
@@ -37,6 +40,22 @@ module.exports = {
     return await movieModel.find({ title: { $regex: title, $options: "$i" } });
   },
   upload: async (movieId, uploadFile) => {
-    return await movieModel.findByIdAndUpdate(movieId, uploadFile, { new: true });
+    return await movieModel.findByIdAndUpdate(movieId, uploadFile, {
+      new: true,
+    });
+  },
+  getPageInfo: async (page) => {
+    const totalItem = await movieModel.countDocuments();
+    const activePage = page;
+    const totalPage = Math.ceil(totalItem / 10);
+
+    return { totalItem, activePage, totalPage };
+  },
+  getPagination: async (page) => {
+    const totalItem = await movieModel.countDocuments();
+    const activePage = page;
+    const totalPage = Math.ceil(totalItem / 10);
+
+    return { totalItem, activePage, totalPage };
   },
 };

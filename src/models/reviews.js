@@ -1,5 +1,7 @@
 //Import dependencies
 const mongoose = require("mongoose");
+const users = require("./users");
+const movies = require("./movies");
 const Schema = mongoose.Schema;
 
 const reviewsSchema = new Schema(
@@ -23,7 +25,7 @@ const reviewsSchema = new Schema(
     },
     movie: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "movies",
+      ref: movies,
     },
     createdAt: {
       type: Date,
@@ -38,6 +40,15 @@ const reviewsSchema = new Schema(
     collection: "reviews",
   }
 );
+
+// reviewsSchema.post("findByIdAndDelete", async (review) => {
+//   await users.updateOne(review.user, {
+//     $pull: { reviews: review._id },
+//   });
+//   await movies.updateOne(review.movie, {
+//     $pull: { reviews: review._id },
+//   });
+// });
 
 //Module export
 module.exports = mongoose.model("Review", reviewsSchema);

@@ -7,15 +7,11 @@ const categoryController = require("../controllers/category");
 //Middleware
 const authMiddleware = require("../middlewares/auth");
 const categoryMiddleware = require("../middlewares/category");
-const roleMiddleware = require("../middlewares/role")
+const roleMiddleware = require("../middlewares/role");
 
 //Routes
-router.get(
-  "/category",
-  authMiddleware.validateToken,
-  roleMiddleware.admin,
-  categoryController.browse
-);
+router.get("/category", categoryController.browse);
+
 router.post(
   "/category",
   authMiddleware.validateToken,

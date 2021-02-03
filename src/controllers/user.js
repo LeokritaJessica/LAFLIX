@@ -5,9 +5,13 @@ const userService = require("../services/user");
 //Modules exports
 module.exports = {
   browse: async (req, res) => {
+    const { page = 1 } = req.query;
     try {
-      const user = await userService.find();
-      res.status(200).send({ data: user });
+      const user = await userService.find(page);
+
+      //get total documents
+      const pageInfo = await userService.getPagination(page);
+      res.status(200).send({ data: user , ...pageInfo});
     } catch (err) {
       res.status(400).json({ error: err });
     }

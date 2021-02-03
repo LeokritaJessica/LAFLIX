@@ -6,7 +6,6 @@ const authController = require("../controllers/auth");
 
 //Middleware
 const authMiddleware = require("../middlewares/auth");
-const uploadS3Middleware = require("../middlewares/uploadPhoto");
 
 //Routes
 router.post("/login", authMiddleware.validateLogin, authController.login);

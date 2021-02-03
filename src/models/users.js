@@ -1,5 +1,6 @@
 //Import dependencies
 const mongoose = require("mongoose");
+const reviews= require("./reviews")
 const Schema = mongoose.Schema;
 
 //Table
@@ -35,7 +36,7 @@ const userSchema = new Schema(
     reviews: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "reviews",
+        ref: reviews,
       },
     ],
     roles: {
@@ -56,6 +57,10 @@ const userSchema = new Schema(
     collection: "users",
   }
 );
+
+userSchema.post("delete", user => {
+  reviews.deleteMany({ _id: {$in: user.reviews}})
+})
 
 //Export modules
 module.exports = mongoose.model("User", userSchema);

@@ -26,15 +26,16 @@ router.post(
 router.put(
   "/movies/:movieId/reviews/:reviewId",
   authMiddleware.validateToken,
+  roleMiddleware.admin,
   reviewMiddleware.edit,
   reviewController.edit
 );
 
-router.delete(
-  "/review/:id",
-  authMiddleware.validateToken,
-  reviewController.delete
-);
+// router.delete(
+//   "/review/:id",
+//   authMiddleware.validateToken,
+//   reviewController.delete
+// );
 
 //Module exports
 module.exports = router;
