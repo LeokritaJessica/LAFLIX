@@ -1,7 +1,7 @@
 //Import dependencies
 const express = require("express");
 const bodyParser = require("body-parser");
-const cors = require('cors')
+const cors = require("cors");
 require("dotenv").config();
 
 //Import routes
@@ -15,11 +15,11 @@ const db = require("./src/config/database");
 const app = express();
 
 //BodyParser
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 //Cors
-app.use(cors())
+app.use(cors());
 
 //Routes
 app.use(router.usersRoutes);
@@ -27,7 +27,7 @@ app.use(router.authRoutes);
 app.use(router.reviewRoutes);
 app.use(router.moviesRoutes);
 app.use(router.categoriesRoutes);
-app.use(router.adminRoutes);
+app.use(router.profileRoutes);
 
 //Start server
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));

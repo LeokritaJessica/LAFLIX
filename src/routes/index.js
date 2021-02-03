@@ -4,7 +4,7 @@ const reviewRoutes = require("./review");
 const moviesRoutes = require("./movie");
 const categoriesRoutes = require("./category");
 const authRoutes = require("./auth");
-const adminRoutes = require("./admin");
+const profileRoutes = require("./profile")
 
 //Module exports
 module.exports = {
@@ -13,5 +13,5 @@ module.exports = {
   moviesRoutes,
   categoriesRoutes,
   authRoutes,
-  adminRoutes,
+  profileRoutes
 };

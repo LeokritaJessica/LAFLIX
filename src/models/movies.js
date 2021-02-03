@@ -1,7 +1,7 @@
 //Import dependencies
 const mongoose = require("mongoose");
-const Category = require("./categories");
-const Reviews = require("./reviews");
+
+//Import data
 const Schema = mongoose.Schema;
 
 const movieSchema = new Schema(
@@ -12,7 +12,7 @@ const movieSchema = new Schema(
     },
     poster: {
       type: String,
-      required: true,
+      default: 'poster',
     },
     trailer: {
       type: String,
@@ -38,12 +38,10 @@ const movieSchema = new Schema(
       type: String,
       required: true,
     },
-    categories: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: Category,
-      },
-    ],
+    category: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "categories",
+    },
     tag: {
       type: String,
       required: true,
@@ -55,7 +53,7 @@ const movieSchema = new Schema(
     reviews: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: Reviews,
+        ref: "reviews",
       },
     ],
     createdAt: {
@@ -69,8 +67,17 @@ const movieSchema = new Schema(
   },
   {
     collection: "movies",
+    toJSON: {
+      virtuals: true,
+    }
   }
 );
+
+// movieSchema.virtual('rating').get( function() {
+//   const sum = this.reviews.reduce((a, b)=> a+b, 0)
+//   return (sum/this.reviews.length)|| 0
+  
+// })
 
 //Module export
 module.exports = mongoose.model("Movie", movieSchema);

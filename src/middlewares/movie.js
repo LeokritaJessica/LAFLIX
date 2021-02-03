@@ -7,7 +7,6 @@ module.exports = {
     const { body } = req;
     const schema = joi.object({
       title: joi.string().required(),
-      poster: joi.string().required(),
       trailer: joi.string().required(),
       starring: joi.string().required(),
       synopsis: joi.string().required(),
@@ -16,6 +15,7 @@ module.exports = {
       budget: joi.string().required(),
       tag: joi.string().required(),
       releaseDate: joi.string().required(),
+      categoryId: joi.string().required(),
     });
 
     const validation = schema.validate(body);
@@ -30,7 +30,6 @@ module.exports = {
     const { body } = req;
     const schema = joi.object({
       title: joi.string().required(),
-      poster: joi.string().required(),
       trailer: joi.string().required(),
       starring: joi.string().required(),
       synopsis: joi.string().required(),

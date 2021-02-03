@@ -4,6 +4,10 @@ const Schema = mongoose.Schema;
 
 const reviewsSchema = new Schema(
   {
+    headline: {
+      type: String,
+      required: true,
+    },
     comment: {
       type: String,
       required: true,
@@ -12,6 +16,14 @@ const reviewsSchema = new Schema(
     rating: {
       type: Number,
       required: true,
+    },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "users",
+    },
+    movie: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "movies",
     },
     createdAt: {
       type: Date,

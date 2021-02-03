@@ -22,16 +22,16 @@ module.exports = {
       if (!isPassValid) return res.status(400).send("Invalid password");
 
       //Create and assign a token
-      const payload = {_id: isEmailValid.id};
+      const payload = { _id: isEmailValid.id, roles: isEmailValid.roles };
       const token = jwt.sign(payload, SECRET_TOKEN, { expiresIn: "1800s" });
 
-      res.status(200).send({info: 'LOGIN', data: {token}})
+      res.status(200).send({ info: "LOGIN", data: { token } });
     } catch (err) {
       res.status(400).json(err);
     }
   },
   register: async (req, res) => {
-    const { body, file } = req;
+    const { body } = req;
 
     //hash password
     const salt = await bcrypt.genSalt(10);
@@ -40,14 +40,11 @@ module.exports = {
     //Find exist email in database
     const isEmailValid = await loginService.findEmail(body.email);
     if (isEmailValid) return res.status(400).send("This Email already used");
-    console.log(file)
-    
+
     //Create new user
     const userData = {
       ...body,
-      photo: file.location,
       password: hashedPass,
-
     };
     try {
       const savedUser = await loginService.register(userData);
