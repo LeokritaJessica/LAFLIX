@@ -22,12 +22,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 //Routes
-app.use(router.usersRoutes);
-app.use(router.authRoutes);
-app.use(router.reviewRoutes);
-app.use(router.moviesRoutes);
-app.use(router.categoriesRoutes);
-app.use(router.profileRoutes);
+app.use("/api", router.usersRoutes);
+app.use("/api", router.authRoutes);
+app.use("/api", router.reviewRoutes);
+app.use("/api", router.moviesRoutes);
+app.use("/api", router.categoriesRoutes);
+app.use("/api", router.profileRoutes);
 
 //Start server
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
