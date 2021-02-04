@@ -31,3 +31,6 @@ app.use("/api", router.profileRoutes);
 
 //Start server
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+
+//Module export
+module.exports = app
