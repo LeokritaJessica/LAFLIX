@@ -114,7 +114,7 @@ module.exports = {
     const uploadFile = file.location;
 
     try {
-      const upload = await movieService.edit(movieId, uploadFile);
+      const upload = await movieService.upload(movieId, uploadFile);
       res.send({ message: "Upload photo Success", data: upload });
     } catch (err) {
       res.status(400).json({ error: err });

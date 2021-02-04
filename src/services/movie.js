@@ -48,9 +48,11 @@ module.exports = {
     return await movieModel.find({ title: { $regex: title, $options: "$i" } });
   },
   upload: async (movieId, uploadFile) => {
-    return await movieModel.findByIdAndUpdate(movieId, uploadFile, {
-      new: true,
-    });
+    return await movieModel.findByIdAndUpdate(
+      movieId,
+      { poster: uploadFile },
+      { new: true }
+    );
   },
   getPageInfo: async (page) => {
     const totalItem = await movieModel.countDocuments();
