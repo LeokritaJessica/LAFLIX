@@ -9,7 +9,7 @@ const authMiddleware = require("../middlewares/auth");
 const roleMiddleware = require("../middlewares/role")
 
 //Routes
-router.get("/users", roleMiddleware.admin, userController.browse);
+router.get("/users", authMiddleware.validateToken, roleMiddleware.admin, userController.browse);
 router.get(
   "/users/:id",
   authMiddleware.validateToken,
