@@ -5,10 +5,10 @@ const router = require("express").Router();
 const movieController = require("../controllers/movie");
 
 //Middleware
-const uploadMovieMiddleware = require("../middlewares/uploadMovie")
+const uploadMovieMiddleware = require("../middlewares/uploadMovie");
 const authMiddleware = require("../middlewares/auth");
 const movieMiddleware = require("../middlewares/movie");
-const roleMiddleware = require("../middlewares/role")
+const roleMiddleware = require("../middlewares/role");
 
 //Routes
 router.get("/movies", movieController.browse);
@@ -21,7 +21,7 @@ router.post(
   roleMiddleware.admin,
   movieMiddleware.add,
   movieController.add
-  );
+);
 
 //Upload Poster movie
 router.post(
@@ -50,7 +50,10 @@ router.delete(
 router.get("/search/:title", movieController.search);
 
 //Search Categories for Public
-router.get("/categories/:categoryId/movies", movieController.browseByCat)
+router.get("/categories/:categoryId/movies", movieController.browseByCat);
+
+//Search Tag for Public
+router.get("/tag/:tag/movies", movieController.browseByTag);
 
 //Module exports
 module.exports = router;

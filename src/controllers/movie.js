@@ -32,6 +32,21 @@ module.exports = {
       res.status(400).json({ error: err });
     }
   },
+  browseByTag: async (req, res) => {
+    const tag = req.params;
+    // destructure page and limit and set default values
+    const { page = 1 } = req.query;
+    try {
+      const movie = await movieService.findByTag(tag, page);
+
+      //get total documents in the category
+      const pageInfo = await movieService.getPageInfo(page);
+
+      res.status(200).send({ data: movie, ...pageInfo });
+    } catch (err) {
+      res.status(400).json({ error: err });
+    }
+  },
   read: async (req, res) => {
     try {
       const { id } = req.params;

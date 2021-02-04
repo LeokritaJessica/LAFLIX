@@ -1,6 +1,6 @@
 //Import data
 const movieModel = require("../models/movies");
-const categoryModel = require("../models/categories")
+const categoryModel = require("../models/categories");
 
 //Module exports
 module.exports = {
@@ -17,6 +17,14 @@ module.exports = {
   findByCat: async (categoryId, page) => {
     return await movieModel
       .find({ category: categoryId })
+      .limit(10)
+      .skip((page - 1) * 10)
+      .exec();
+  },
+  //Menambahkan service search byTag
+  findByTag: async (tag, page) => {
+    return await movieModel
+      .find(tag)
       .limit(10)
       .skip((page - 1) * 10)
       .exec();
