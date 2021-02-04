@@ -45,7 +45,7 @@ module.exports = {
     //Create new comment
     const reviewData = { ...body, movie: movieId, user: user._id };
 
-    try {
+    // try {
       const savedReview = await reviewService.add(
         movieId,
         user._id,
@@ -54,9 +54,9 @@ module.exports = {
       res
         .status(200)
         .send({ message: "Add review Success", data: savedReview });
-    } catch (err) {
-      res.status(400).json({ error: err });
-    }
+    // } catch (err) {
+      // res.status(400).json({ error: err });
+    // }
   },
   edit: async (req, res) => {
     const { movieId, reviewId } = req.params;

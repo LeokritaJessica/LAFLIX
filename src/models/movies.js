@@ -13,14 +13,14 @@ const movieSchema = new Schema(
     },
     poster: {
       type: String,
-      default: 'poster',
+      default: "poster",
     },
     ratingAverage: {
       type: Number,
       default: 1,
-      min: [1, 'Rating must be above 1.0'],
-      max: [10, 'Rating must be below 10.0'],
-      set: val => Math.round(val * 10)/10
+      min: [1, "Rating must be above 1.0"],
+      max: [10, "Rating must be below 10.0"],
+      set: (val) => Math.round(val * 10) / 10,
     },
     trailer: {
       type: String,
@@ -61,7 +61,7 @@ const movieSchema = new Schema(
     reviews: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: reviews,
+        ref: "reviews",
       },
     ],
     createdAt: {
@@ -77,7 +77,7 @@ const movieSchema = new Schema(
     collection: "movies",
     toJSON: {
       virtuals: true,
-    }
+    },
   }
 );
 
@@ -86,4 +86,4 @@ movieSchema.post("delete", (movie) => {
 });
 
 //Module export
-module.exports = mongoose.model("Movie", movieSchema);
+module.exports = mongoose.model("movies", movieSchema);

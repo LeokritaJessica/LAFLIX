@@ -25,7 +25,7 @@ const reviewsSchema = new Schema(
     },
     movie: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: movies,
+      ref: "movies",
     },
     createdAt: {
       type: Date,
@@ -51,4 +51,4 @@ const reviewsSchema = new Schema(
 // });
 
 //Module export
-module.exports = mongoose.model("Review", reviewsSchema);
+module.exports = mongoose.model("reviews", reviewsSchema);
