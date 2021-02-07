@@ -8,6 +8,7 @@ module.exports = {
   find: async (page) => {
     return await reviewModel
       .find()
+      .populate({ path: "user" })
       .limit(10)
       .skip((page - 1) * 10)
       .exec();
@@ -18,6 +19,7 @@ module.exports = {
   findByMovieId: async (movieId, page) => {
     return await reviewModel
       .find({ movie: movieId })
+      .populate({ path: "user" })
       .limit(10)
       .skip((page - 1) * 10)
       .exec();

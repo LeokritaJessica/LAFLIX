@@ -10,12 +10,7 @@ const roleMiddleware = require("../middlewares/role")
 
 //Routes
 router.get("/users", authMiddleware.validateToken, roleMiddleware.admin, userController.browse);
-router.get(
-  "/users/:id",
-  authMiddleware.validateToken,
-  roleMiddleware.admin,
-  userController.read
-);
+
 router.put(
   "/users/:id",
   authMiddleware.validateToken,

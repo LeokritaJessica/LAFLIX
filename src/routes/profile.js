@@ -4,6 +4,7 @@ const router = require("express").Router();
 //Controller
 const profileController = require("../controllers/profile")
 const reviewController = require("../controllers/review");
+const userController = require("../controllers/user")
 
 //Middleware
 const uploadPhotoMiddleware = require("../middlewares/uploadPhoto");
@@ -16,6 +17,13 @@ router.get(
   authMiddleware.validateToken,
   roleMiddleware.user,
   reviewController.browse
+);
+
+router.get(
+  "/profile",
+  authMiddleware.validateToken,
+  roleMiddleware.user,
+  userController.read
 );
 
 router.post(
