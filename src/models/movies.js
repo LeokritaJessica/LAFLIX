@@ -1,7 +1,8 @@
 //Import dependencies
 const mongoose = require("mongoose");
-const Category = require("./categories");
-const Reviews = require("./reviews");
+const reviews = require("./reviews");
+
+//Import data
 const Schema = mongoose.Schema;
 
 const movieSchema = new Schema(
@@ -12,7 +13,14 @@ const movieSchema = new Schema(
     },
     poster: {
       type: String,
-      required: true,
+      default: "poster",
+    },
+    ratingAverage: {
+      type: Number,
+      default: 1,
+      min: [1, "Rating must be above 1.0"],
+      max: [10, "Rating must be below 10.0"],
+      set: (val) => Math.round(val * 10) / 10,
     },
     trailer: {
       type: String,
@@ -30,24 +38,30 @@ const movieSchema = new Schema(
       type: String,
       required: true,
     },
-    categories: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: Category,
-      },
-    ],
+    duration: {
+      type: String,
+      required: true,
+    },
+    budget: {
+      type: String,
+      required: true,
+    },
+    category: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "categories",
+    },
     tag: {
       type: String,
       required: true,
     },
     releaseDate: {
-      type: Number,
+      type: String,
       required: true,
     },
     reviews: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: Reviews,
+        ref: "reviews",
       },
     ],
     createdAt: {
@@ -61,8 +75,15 @@ const movieSchema = new Schema(
   },
   {
     collection: "movies",
+    toJSON: {
+      virtuals: true,
+    },
   }
 );
 
+movieSchema.post("delete", (movie) => {
+  reviews.deleteMany({ _id: { $in: movie.reviews } });
+});
+
 //Module export
-module.exports = mongoose.model("Movie", movieSchema);
+module.exports = mongoose.model("movies", movieSchema);

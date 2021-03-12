@@ -22,10 +22,14 @@ module.exports = {
       if (!isPassValid) return res.status(400).send("Invalid password");
 
       //Create and assign a token
-      const payload = {_id: isEmailValid.id};
+      const payload = {
+        _id: isEmailValid.id,
+        username: isEmailValid.username,
+        roles: isEmailValid.roles,
+      };
       const token = jwt.sign(payload, SECRET_TOKEN, { expiresIn: "1800s" });
 
-      res.status(200).send({info: 'LOGIN', data: {token}})
+      res.status(200).send({ info: "LOGIN", data: { token } });
     } catch (err) {
       res.status(400).json(err);
     }

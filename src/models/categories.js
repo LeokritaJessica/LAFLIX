@@ -4,6 +4,12 @@ const Schema = mongoose.Schema;
 
 const categorySchema = new Schema(
   {
+    movies: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "movies",
+      },
+    ],
     category: {
       type: String,
       required: true,
@@ -23,4 +29,4 @@ const categorySchema = new Schema(
 );
 
 //Module export
-module.exports = mongoose.model("Category", categorySchema);
+module.exports = mongoose.model("categories", categorySchema);

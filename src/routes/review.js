@@ -7,24 +7,35 @@ const reviewController = require("../controllers/review");
 //Middleware
 const authMiddleware = require("../middlewares/auth");
 const reviewMiddleware = require("../middlewares/review");
+const roleMiddleware  = require("../middlewares/role")
 
 //Routes
 router.get(
-  "/review",
-  authMiddleware.validateToken,
+  "/movies/:movieId/reviews",
   reviewController.browse
 );
+
 router.post(
-  "/review",
+  "/movies/:movieId/reviews",
   authMiddleware.validateToken,
+  roleMiddleware.user,
   reviewMiddleware.add,
   reviewController.add
 );
-router.delete(
-  "/review/:id",
+
+router.put(
+  "/movies/:movieId/reviews/:reviewId",
   authMiddleware.validateToken,
-  reviewController.delete
+  roleMiddleware.admin,
+  reviewMiddleware.edit,
+  reviewController.edit
 );
+
+// router.delete(
+//   "/review/:id",
+//   authMiddleware.validateToken,
+//   reviewController.delete
+// );
 
 //Module exports
 module.exports = router;

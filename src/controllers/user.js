@@ -5,10 +5,13 @@ const userService = require("../services/user");
 //Modules exports
 module.exports = {
   browse: async (req, res) => {
+    const { page = 1 } = req.query;
     try {
-      const user = await userService.find();
+      const user = await userService.find(page);
 
-      res.status(200).send({ data: user });
+      //get total documents
+      const pageInfo = await userService.getPagination(page);
+      res.status(200).send({ data: user , ...pageInfo});
     } catch (err) {
       res.status(400).json({ error: err });
     }
@@ -17,7 +20,7 @@ module.exports = {
     try {
       const { id } = req.params;
       const user = await userService.findId(id);
-
+      
       res.status(200).send({ data: user });
     } catch (err) {
       res.status(400).json({ error: err });
@@ -29,14 +32,12 @@ module.exports = {
       const { id } = req.params;
       //hash password
       const salt = await bcrypt.genSalt(10);
-      console.log(salt);
       const hashedPass = await bcrypt.hash(body.password, salt);
 
       const userData = {
         ...body,
         password: hashedPass,
       };
-      console.log(userData);
       
       const editUser = await userService.edit(id, userData);
       res.status(200).send({ message: "Update user Success", data: editUser });

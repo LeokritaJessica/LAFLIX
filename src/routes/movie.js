@@ -5,28 +5,55 @@ const router = require("express").Router();
 const movieController = require("../controllers/movie");
 
 //Middleware
+const uploadMovieMiddleware = require("../middlewares/uploadMovie");
 const authMiddleware = require("../middlewares/auth");
 const movieMiddleware = require("../middlewares/movie");
+const roleMiddleware = require("../middlewares/role");
 
 //Routes
-router.get("/movie", movieController.browse);
+router.get("/movies", movieController.browse);
+
+router.get("/movies/:id", movieController.read);
+
 router.post(
-  "/movie",
+  "/movies",
   authMiddleware.validateToken,
+  roleMiddleware.admin,
   movieMiddleware.add,
   movieController.add
 );
-router.put(
-  "/movie/:id",
+
+//Upload Poster movie
+router.post(
+  "/movies/:movieId/upload",
   authMiddleware.validateToken,
+  roleMiddleware.admin,
+  uploadMovieMiddleware.single("poster"),
+  movieController.upload
+);
+
+router.put(
+  "/movies/:id",
+  authMiddleware.validateToken,
+  roleMiddleware.admin,
   movieMiddleware.edit,
   movieController.edit
 );
 router.delete(
-  "/movie/:id",
+  "/movies/:id",
   authMiddleware.validateToken,
+  roleMiddleware.admin,
   movieController.delete
 );
+
+//Search Movies for Public
+router.get("/search/:title", movieController.search);
+
+//Search Categories for Public
+router.get("/categories/:categoryId/movies", movieController.browseByCat);
+
+//Search Tag for Public
+router.get("/tag/:tag/movies", movieController.browseByTag);
 
 //Module exports
 module.exports = router;

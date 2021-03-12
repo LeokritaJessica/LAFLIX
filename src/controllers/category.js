@@ -4,10 +4,15 @@ const categoryService = require("../services/category");
 //Modules exports
 module.exports = {
   browse: async (req, res) => {
+    // destructure page and limit and set default values
+    const { page = 1 } = req.query;
     try {
-      const category = await categoryService.find();
+      const category = await categoryService.find(page);
 
-      res.status(200).send({ data: category });
+      //get total documents
+      const pageInfo = await categoryService.getPagination(page);
+
+      res.status(200).send({ data: category, ...pageInfo });
     } catch (err) {
       res.status(400).json({ error: err });
     }
@@ -38,7 +43,7 @@ module.exports = {
     } catch (err) {
       res
         .status(400)
-        .send({ message: "Update category Success", data: updateCategory });;
+        .send({ message: "Update category Success", data: updateCategory });
     }
   },
   delete: async (req, res) => {

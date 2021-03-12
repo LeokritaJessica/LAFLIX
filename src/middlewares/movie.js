@@ -7,13 +7,15 @@ module.exports = {
     const { body } = req;
     const schema = joi.object({
       title: joi.string().required(),
-      poster: joi.string().required(),
       trailer: joi.string().required(),
       starring: joi.string().required(),
       synopsis: joi.string().required(),
       director: joi.string().required(),
+      duration: joi.string().required(),
+      budget: joi.string().required(),
       tag: joi.string().required(),
-      releaseDate: joi.number().integer().required(),
+      releaseDate: joi.string().required(),
+      categoryId: joi.string().required(),
     });
 
     const validation = schema.validate(body);
@@ -28,13 +30,12 @@ module.exports = {
     const { body } = req;
     const schema = joi.object({
       title: joi.string().required(),
-      poster: joi.string().required(),
       trailer: joi.string().required(),
       starring: joi.string().required(),
       synopsis: joi.string().required(),
       director: joi.string().required(),
       tag: joi.string().required(),
-      releaseDate: joi.number().integer().required(),
+      releaseDate: joi.string().integer().required(),
     });
 
     const validation = schema.validate(body);
